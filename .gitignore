@@ -1,0 +1,14 @@
+# Node.js
+node_modules/
+
+# Python
+*.pyc
+*.pyo
+__pycache__/
+
+# Environment variables
+.env
+
+# IDE/editor settings
+.vscode/
+.idea/

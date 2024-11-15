@@ -1,0 +1,47 @@
+/*Here go the custom css styles for the input*/
+/* Container for the input field */
+.container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem; /* Space between each input */
+  width: 100%;
+}
+
+/* Style for the label */
+label {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-bottom: 0.5rem;
+  color: #333;
+  transition: color 0.2s ease;
+  align-self: flex-start;
+}
+
+/* Style for the input field */
+input {
+  padding: 0.8rem;
+  font-size: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+  width: 25em;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focus state for the input */
+input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+/* Hover state for the input */
+input:hover {
+  border-color: #888;
+}
+
+/* Optional: Adding a small error message below the input */
+.error {
+  font-size: 0.875rem;
+  color: red;
+  margin-top: 0.25rem;
+}
