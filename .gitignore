@@ -12,3 +12,6 @@ __pycache__/
 # IDE/editor settings
 .vscode/
 .idea/
+
+# Ignore virtual environment
+.venv/
