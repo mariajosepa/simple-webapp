@@ -1,17 +1,18 @@
-# Node.js
+# Node.js.
 node_modules/
 
-# Python
+# Python.
 *.pyc
 *.pyo
 __pycache__/
 
-# Environment variables
+# Environment variables.
 .env
 
-# IDE/editor settings
+# IDE/editor settings.
 .vscode/
 .idea/
 
-# Ignore virtual environment
+# Ignore virtual environment.
 .venv/
+venv
