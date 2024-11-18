@@ -21,7 +21,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 env = environ.Env()
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
@@ -43,6 +42,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'dispositivos',
+    'usuarios',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -82,11 +84,19 @@ WSGI_APPLICATION = 'mysite.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': env('DB_NAME'),
-        'USER': env('DB_USER'),
-        'PASSWORD': env('DB_PASSWORD'),
-        'HOST': env('DB_HOST'),
-        'PORT': env('DB_PORT'),
+        'NAME': env('DB_USUARIO_NAME'),
+        'USER': env('DB_USUARIO_USER'),
+        'PASSWORD': env('DB_USUARIO_PASSWORD'),
+        'HOST': env('DB_USUARIO_HOST'),
+        'PORT': env('DB_USUARIO_PORT'),
+    },
+    'dispositivos': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': env('DB_DISPOSITIVO_NAME'),
+        'USER': env('DB_DISPOSITIVO_USER'),
+        'PASSWORD': env('DB_DISPOSITIVO_PASSWORD'),
+        'HOST': env('DB_DISPOSITIVO_HOST'),
+        'PORT': env('DB_DISPOSITIVO_PORT'),
     }
 }
 
