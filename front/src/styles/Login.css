@@ -1,11 +1,56 @@
-body{
-  display: flex;
-  justify-content: center;
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: #f9f9f9;
 }
 
-
-div{
+.login-container {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
   align-items: center;
+  height: 100vh;
+  background-color: #fff;
+}
+
+.login-box {
+  text-align: center;
+  max-width: 350px; /* Ajustamos el tamaño del cuadro */
+  width: 100%;
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+p {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  font-size: 12px;
+  color: #888; /* Usamos un gris más claro */
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.forgot-password {
+  display: block;
+  margin-top: 15px;
+  font-size: 12px;
+  color: #007bff;
+  text-decoration: none;
+  font-family: "Poppins", sans-serif;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
 }
