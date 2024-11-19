@@ -1,6 +1,7 @@
 import Table1 from "../components/Table1";
 import Map from '../components/Map';
 import "../styles/Monitoreo.css";
+import React from 'react';
 
 function Monitoreo() {
   return (
@@ -9,8 +10,7 @@ function Monitoreo() {
         <Table1 />
       </div>
       <div className="right-container">
-        <Map />
-        <div className="map-placeholder">Mapa aquí</div>
+        <Map/>
       </div>
     </div>
   );

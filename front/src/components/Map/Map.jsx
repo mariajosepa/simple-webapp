@@ -2,6 +2,7 @@ import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import 'leaflet/dist/leaflet.css';
 import L from 'leaflet';
+import './Map.css'
 
 // Para corregir el problema de los íconos de marcador
 delete L.Icon.Default.prototype._getIconUrl;
@@ -12,8 +13,8 @@ L.Icon.Default.mergeOptions({
 
 const Map = () => {
   // Configuración inicial del mapa
-  const position = [51.505, -0.09]; // Coordenadas iniciales (Londres)
-  const zoomLevel = 13;
+  const position = [3.349079713975641, -76.5312976793884]; // Coordenadas iniciales (Javeriana)
+  const zoomLevel = 73;
 
   return (
     <div className="map-container">
@@ -24,7 +25,7 @@ const Map = () => {
         />
         <Marker position={position}>
           <Popup>
-            Estás aquí. <br /> Usa este mapa para explorar.
+            Robot dron. <br /> Aca hay un dron en entrega.
           </Popup>
         </Marker>
       </MapContainer>
