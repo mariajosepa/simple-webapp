@@ -16,3 +16,6 @@ __pycache__/
 # Ignore virtual environment.
 .venv/
 venv
+
+migrations
+db_sessions.sqlite3
