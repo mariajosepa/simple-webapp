@@ -118,7 +118,8 @@ function Table1(){
 
       {/* Mostrar más */}
       <div className="table-show-more" onClick={handleExpandTable}>
-        {isExpanded ? 'Mostrar menos' : 'Mostrar más'} <span className="arrow">V</span>
+        {isExpanded ? 'Mostrar menos' : 'Mostrar más'} 
+        {isExpanded ? <span className="arrow">∧</span> : <span className="arrow">∨</span>}
       </div>
     </div>
   );

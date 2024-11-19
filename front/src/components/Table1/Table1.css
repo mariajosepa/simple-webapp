@@ -10,6 +10,17 @@
   height: fit-content;
 }
 
+.page-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+  gap: 2em;
+}
+
+.table-container{
+  margin: 4em auto;
+}
+
 .table-header {
   display: flex;
   justify-content: space-between;
@@ -119,4 +130,9 @@
   text-align: center;
   color: #888;
   font-style: italic;
+}
+
+.arrow {
+  cursor: pointer;
+  margin-top: -0.4em;
 }
