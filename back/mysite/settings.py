@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'dispositivos',
     'usuarios',
     'servicios',
+    'autenticacion',
     'rest_framework',
     'rest_framework_gis',
     'django.contrib.gis',
