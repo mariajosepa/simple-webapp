@@ -5,8 +5,7 @@ import "../styles/Login.css";
 import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
-function Login() {
-  
+function Autenticacion() {
   const navigate = useNavigate();  // Hook para navegación
 
   const handleLogin = (e) => {
@@ -15,16 +14,17 @@ function Login() {
     // Aquí podrías agregar la lógica para verificar las credenciales si fuera necesario
 
     // Redirige a la página de autenticación de código
-    navigate('/autenticacion');  // Aquí cambias la ruta según necesites
+    navigate('/monitoreo');  // Aquí cambias la ruta según necesites
   };
+
   return (
     <div className="login-container">
       <div className="login-box">
         <h1>Iniciar Sesión</h1>
         <p>Inicia sesión para continuar</p>
         <form onSubmit={handleLogin}>
-          <Input label='CORREO' placeholder='quieropasarprocesos@example.com'/>
-          <Input label='CONTRASEÑA' placeholder='*******'/>
+        <p>Le enviamos un código de verificación a su correo: quieropasarprocesos@example.com</p>
+          <Input label='CÓDIGO' placeholder='123456'/>
           <Button label='Ingresar' type="submit"/>
         </form>
         <Link to="/recuperacion" className="forgot-password">
@@ -36,4 +36,4 @@ function Login() {
 }
 
 
-export default Login;
+export default Autenticacion;
