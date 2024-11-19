@@ -19,13 +19,18 @@ label {
 
 /* Style for the input field */
 input {
-  padding: 0.8rem;
-  font-size: 1rem;
-  border: 2px solid #ccc;
-  border-radius: 4px;
-  outline: none;
-  width: 25em;
-  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  width: calc(100% - 20px); /* Ajustamos el ancho */
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #f2f2f2; /* Color gris */
+  color: #333; /* Texto gris oscuro */
+  font-family: "Poppins", sans-serif;
+}
+
+input::placeholder {
+  color: #aaa; /* Placeholder en gris claro */
 }
 
 /* Focus state for the input */
