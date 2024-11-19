@@ -44,7 +44,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dispositivos',
     'usuarios',
+    'servicios',
     'rest_framework',
+    'rest_framework_gis',
+    'django.contrib.gis',
 ]
 
 MIDDLEWARE = [
@@ -97,6 +100,14 @@ DATABASES = {
         'PASSWORD': env('DB_DISPOSITIVO_PASSWORD'),
         'HOST': env('DB_DISPOSITIVO_HOST'),
         'PORT': env('DB_DISPOSITIVO_PORT'),
+    },
+    'servicios': {
+        'ENGINE': 'django.contrib.gis.db.backends.mysql',
+        'NAME': env('DB_SERVICIO_NAME'),
+        'USER': env('DB_SERVICIO_USER'),
+        'PASSWORD': env('DB_SERVICIO_PASSWORD'),
+        'HOST': env('DB_SERVICIO_HOST'),
+        'PORT': env('DB_SERVICIO_PORT'),
     }
 }
 
@@ -141,3 +152,6 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+GDAL_LIBRARY_PATH = 'C:/OSGeo4W/bin/gdal309.dll'
