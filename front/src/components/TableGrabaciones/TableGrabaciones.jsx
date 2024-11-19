@@ -1,43 +1,76 @@
-import "./Table1.css";
+import "./TableGrabaciones.css";
 import React, { useState } from 'react'; // Asegúrate de importar useState
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
-function Table1(){
-  // Datos de los dispositivos
+// Función para generar fechas aleatorias dentro del último año
+const generateRandomDate = () => {
+  const now = new Date();
+  const pastYear = new Date(now.setFullYear(now.getFullYear() - 1));
+  const randomTime = pastYear.getTime() + Math.random() * (new Date().getTime() - pastYear.getTime());
+  return new Date(randomTime).toISOString().split("T")[0]; // Formato YYYY-MM-DD
+};
+
+function TableGrabaciones(){
+  // Generar fechas aleatorias para los dispositivos
   const devices = [
-    { id: 1, name: 'Robot tierra', type: 'robot-tierra', status: 'entregado' },
-    { id: 2, name: 'Dron aire', type: 'dron-aire', status: 'de-regreso' },
-    { id: 3, name: 'Carro remoto', type: 'carro-remoto', status: 'entregado' },
-    { id: 4, name: 'Carro remoto', type: 'carro-remoto', status: 'de-regreso' },
-    { id: 5, name: 'Dron aire', type: 'dron-aire', status: 'en-hangar' },
-    { id: 6, name: 'Robot tierra', type: 'robot-tierra', status: 'en-hangar' },
-    { id: 7, name: 'Robot tierra', type: 'robot-tierra', status: 'entregado' },
-    { id: 8, name: 'Dron aire', type: 'dron-aire', status: 'en-hangar' },
-    { id: 9, name: 'Carro remoto', type: 'carro-remoto', status: 'entregado' },
-    { id: 10, name: 'Dron aire', type: 'dron-aire', status: 'de-regreso' },
-  ];
+    { id: 1, name: 'Robot tierra', type: 'robot-tierra' },
+    { id: 2, name: 'Dron aire', type: 'dron-aire' },
+    { id: 3, name: 'Carro remoto', type: 'carro-remoto' },
+    { id: 4, name: 'Carro remoto', type: 'carro-remoto' },
+    { id: 5, name: 'Dron aire', type: 'dron-aire' },
+    { id: 6, name: 'Robot tierra', type: 'robot-tierra' },
+    { id: 7, name: 'Robot tierra', type: 'robot-tierra' },
+    { id: 8, name: 'Dron aire', type: 'dron-aire' },
+    { id: 9, name: 'Carro remoto', type: 'carro-remoto' },
+    { id: 10, name: 'Dron aire', type: 'dron-aire' },
+  ].map((device) => ({
+    ...device,
+    fecha: generateRandomDate(), // Asignar una fecha aleatoria
+  }));
+
+  const getDateRange = (filter) => {
+    const now = new Date();
+    if (filter === "ultimo-dia") {
+      return new Date(now.setDate(now.getDate() - 1));
+    } else if (filter === "ultima-semana") {
+      return new Date(now.setDate(now.getDate() - 7));
+    } else if (filter === "ultimo-mes") {
+      return new Date(now.setMonth(now.getMonth() - 1));
+    } else if (filter === "ultimo-ano") {
+      return new Date(now.setFullYear(now.getFullYear() - 1));
+    }
+    return null;
+  };
 
   const [deviceType, setDeviceType] = useState('');
-  const [status, setStatus] = useState('');
+  const [dateFilter, setDateFilter] = useState(""); 
   const [searchQuery, setSearchQuery] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handleDeviceTypeChange = (event) => setDeviceType(event.target.value);
-  const handleStatusChange = (event) => setStatus(event.target.value);
+  const handleDateChange = (event) => setDateFilter(event.target.value);
   const handleSearchChange = (event) => setSearchQuery(event.target.value.toLowerCase());
   const handleExpandTable = () => setIsExpanded(!isExpanded);
 
   const filteredDevices = devices.filter((device) => {
     const matchesType = !deviceType || device.type === deviceType;
-    const matchesStatus = !status || device.status === status;
     const matchesSearch = device.name.toLowerCase().includes(searchQuery);
-    return matchesType && matchesStatus && matchesSearch;
+
+    // Comparar fechas como objetos Date
+    let matchesDate = true;
+    if (dateFilter) {
+      const filterDate = getDateRange(dateFilter);
+      const deviceDate = new Date(device.fecha);
+      matchesDate = deviceDate >= filterDate;
+    }
+
+    return matchesType && matchesDate && matchesSearch;
   });
 
   return (
     <div className="table-container">
-      {/* Encabezado */}
       <div className="table-header">
-        <h2 className="table-title">Dispositivos</h2>
+        <h2 className="table-title">Grabaciones</h2>
         <input
           type="text"
           className="table-search"
@@ -47,7 +80,6 @@ function Table1(){
         />
       </div>
 
-      {/* Opciones de filtro */}
       <div className="filter-options">
         <div className="filter-group">
           <label htmlFor="device-type">Tipo de dispositivo:</label>
@@ -65,22 +97,22 @@ function Table1(){
         </div>
 
         <div className="filter-group">
-          <label htmlFor="status">Estado:</label>
+          <label htmlFor="status">Fecha:</label>
           <select
             id="status"
-            value={status}
-            onChange={handleStatusChange}
+            value={dateFilter}
+            onChange={handleDateChange}
             className="filter-select"
           >
-            <option value="">Todos</option>
-            <option value="entregado">Entregado</option>
-            <option value="en-hangar">En hangar</option>
-            <option value="de-regreso">De regreso</option>
+            <option value="">Cualquiera</option>
+            <option value="ultimo-dia">1 día</option>
+            <option value="ultima-semana">1 semana</option>
+            <option value="ultimo-mes">1 mes</option>
+            <option value="ultimo-ano">1 año</option>
           </select>
         </div>
       </div>
 
-      {/* Tabla */}
       <div
         className="table-wrapper"
         style={{
@@ -91,18 +123,18 @@ function Table1(){
         <table className="devices-table">
           <thead>
             <tr>
-              <th>Mostrar en mapa</th>
+              <th>Fecha</th>
               <th>Dispositivo</th>
-              <th>Estado</th>
+              <th>Descargar</th>
             </tr>
           </thead>
           <tbody>
             {filteredDevices.length > 0 ? (
               filteredDevices.map((device) => (
                 <tr key={device.id}>
-                  <td><input type="checkbox" /></td>
+                  <td>{device.fecha}</td>
                   <td>{device.name}</td>
-                  <td className={`status status-${device.status}`}>{device.status}</td>
+                  <td><ArrowDownwardIcon/></td>
                 </tr>
               ))
             ) : (
@@ -116,7 +148,6 @@ function Table1(){
         </table>
       </div>
 
-      {/* Mostrar más */}
       <div className="table-show-more" onClick={handleExpandTable}>
         {isExpanded ? 'Mostrar menos' : 'Mostrar más'} 
         {isExpanded ? <span className="arrow">∧</span> : <span className="arrow">∨</span>}
@@ -125,5 +156,4 @@ function Table1(){
   );
 }
 
-export default Table1;
-
+export default TableGrabaciones;
