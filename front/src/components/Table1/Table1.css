@@ -7,7 +7,8 @@
   background-color: #fff;
   width: 90%;
   max-width: 600px; /* Para limitar el ancho */
-  height: fit-content;
+  height: 100%;
+  margin: 0; /* Centra dentro del contenedor */
 }
 
 .page-container {
@@ -38,7 +39,7 @@
   font-size: 14px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  width: 200px;
+  width: 400px;
 }
 
 .filter-options {
