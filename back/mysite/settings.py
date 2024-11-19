@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework_gis',
     'django.contrib.gis',
+    'django.core.mail',
 ]
 
 MIDDLEWARE = [
@@ -108,9 +109,12 @@ DATABASES = {
         'PASSWORD': env('DB_SERVICIO_PASSWORD'),
         'HOST': env('DB_SERVICIO_HOST'),
         'PORT': env('DB_SERVICIO_PORT'),
+    },
+    'sessions_db': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db_sessions.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -155,3 +159,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 GDAL_LIBRARY_PATH = 'C:/OSGeo4W/bin/gdal309.dll'
+
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'  # Cambia esto según el servicio de correo que uses
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')  # El correo que enviará el mensaje
+EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD')  # La contraseña de la cuenta
+
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
+SESSION_DATABASE_ALIAS = 'sessions_db'
