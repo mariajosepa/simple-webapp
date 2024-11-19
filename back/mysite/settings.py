@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'usuarios',
     'servicios',
     'autenticacion',
+    'videos',
     'rest_framework',
     'rest_framework_gis',
     'django.contrib.gis',
@@ -114,6 +115,14 @@ DATABASES = {
     'sessions_db': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db_sessions.sqlite3',
+    },
+    'videos': {
+        'ENGINE': 'django.contrib.gis.db.backends.mysql',
+        'NAME': env('DB_VIDEO_NAME'),
+        'USER': env('DB_VIDEO_USER'),
+        'PASSWORD': env('DB_VIDEO_PASSWORD'),
+        'HOST': env('DB_VIDEO_HOST'),
+        'PORT': env('DB_VIDEO_PORT'),
     }
 }
 
