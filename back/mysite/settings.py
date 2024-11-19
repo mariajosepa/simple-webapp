@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 import environ
+import platform
 from pathlib import Path
 import os
 
@@ -95,6 +96,9 @@ DATABASES = {
         'PASSWORD': env('DB_USUARIO_PASSWORD'),
         'HOST': env('DB_USUARIO_HOST'),
         'PORT': env('DB_USUARIO_PORT'),
+        'OPTIONS': {
+            'unix_socket': '/tmp/mysql.sock',  # Add this line to use the socket
+        },
     },
     'dispositivos': {
         'ENGINE': 'django.db.backends.mysql',
@@ -167,8 +171,16 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+#Esto es para que django pueda encontrar la librería GDAL
+if platform.system() == "Windows":
+    GDAL_LIBRARY_PATH = 'C:/OSGeo4W/bin/gdal309.dll'
+elif platform.system() == "Darwin":  # macOS
+    GDAL_LIBRARY_PATH = '/opt/homebrew/lib/libgdal.dylib'
+else:
+    GDAL_LIBRARY_PATH = None  # O una ruta para Linux, si aplica
 
-GDAL_LIBRARY_PATH = 'C:/OSGeo4W/bin/gdal309.dll'
+if GDAL_LIBRARY_PATH:
+    os.environ["GDAL_LIBRARY_PATH"] = GDAL_LIBRARY_PATH
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
