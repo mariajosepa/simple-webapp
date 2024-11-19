@@ -18,3 +18,4 @@ __pycache__/
 venv
 
 migrations
+db_sessions.sqlite3
