@@ -55,6 +55,7 @@ class ServicioListView(APIView):
                 "dispositivos": dispositivos,
                 "cliente": {
                     "id": servicio.cliente.id,
+                    "cc": servicio.cliente.cc,
                     "nombre": servicio.cliente.nombre
                 },
                 "productos": servicio.productos,
