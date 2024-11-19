@@ -1,0 +1,44 @@
+/* Contenedor principal de la página */
+.page-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Deja espacio entre los contenedores */
+    padding: 20px;
+    background-color: #f9f9f9;
+    height: 100vh; /* Altura completa de la pantalla */
+  }
+  
+  /* Contenedor izquierdo */
+  .left-container {
+    width: 45%; /* Ajusta el tamaño según necesidad */
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Contenedor derecho */
+  .right-container {
+    width: 45%; /* Ajusta el ancho del contenedor derecho */
+    background-color: #f5f5f5;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  /* Placeholder para el mapa */
+  .map-placeholder {
+    width: 100%;
+    height: 100%;
+    background-color: #d3d3d3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #555;
+    border: 2px dashed #aaa;
+  }
+  
