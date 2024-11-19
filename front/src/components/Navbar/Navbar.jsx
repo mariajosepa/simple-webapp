@@ -66,7 +66,7 @@ function Navbar() {
           component="img"
           sx={{
             height: 200,
-            width: 200,
+            width: 160,
             maxHeight: { xs: 233, md: 167 },
             maxWidth: { xs: 350, md: 250 },
           }}
