@@ -54,3 +54,20 @@ label {
 .forgot-password:hover {
   text-decoration: underline;
 }
+
+/* components/Button/Button.module.css */
+.loginButton {
+  width: 100%;
+  padding: 10px;
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  border: none;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 14px;
+  font-family: "Poppins", sans-serif;
+  cursor: pointer;
+}
+
+button:hover {
+  background: linear-gradient(to right, #00f2fe, #4facfe);
+}

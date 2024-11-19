@@ -1,4 +1,3 @@
-import Button from "../components/Button";
 import Input from "../components/TextInput";
 import "../styles/Login.css";
 
@@ -11,7 +10,7 @@ function Login() {
         <form>
           <Input label='CORREO' placeholder='quieropasarprocesos@example.com'/>
           <Input label='CONTRASEÑA' placeholder='*******'/>
-          <button type="submit">Iniciar sesión</button>
+          <button type="submit" className="loginButton">Iniciar sesión</button>
         </form>
         <a href="/forgot-password" className="forgot-password">
           ¿Olvidó su contraseña?
