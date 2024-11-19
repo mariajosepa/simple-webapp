@@ -10,7 +10,8 @@ import Monitoreo from './pages/Monitoreo.jsx'
 import Grabaciones from './pages/Grabaciones.jsx'
 import Admin from './pages/Administracion.jsx'
 import Ayuda from './pages/Ayuda.jsx'
-
+import Autenticacion from './pages/Autenticacion.jsx'
+import Recuperacion from './pages/Recuperación.jsx'
 
 import './index.css'
 import Layout from './components/Layout/Layout.jsx'
@@ -26,6 +27,14 @@ const router = createBrowserRouter([
   {
     path: '/login',
     element: <Login />,
+  },
+  {
+    path: '/autenticacion',
+    element: <Autenticacion />,
+  },
+  {
+    path: '/recuperacion',
+    element: <Recuperacion />,
   },
   {
     path: '/',
