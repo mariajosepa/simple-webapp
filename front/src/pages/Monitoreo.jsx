@@ -1,4 +1,5 @@
 import Table1 from "../components/Table1";
+import Map from '../components/Map';
 import "../styles/Monitoreo.css";
 
 function Monitoreo() {
@@ -8,7 +9,7 @@ function Monitoreo() {
         <Table1 />
       </div>
       <div className="right-container">
-        {/* Aquí puedes incluir el mapa u otro componente */}
+        <Map />
         <div className="map-placeholder">Mapa aquí</div>
       </div>
     </div>
