@@ -25,7 +25,7 @@ function Grabaciones() {
         <div className="map-placeholder">
           <h2>{selectedDeviceName ? selectedDeviceName : "Selecciona un dispositivo"}</h2>
           {selectedVideoUrl ? (
-            <video controls width="100%" src={selectedVideoUrl} />
+            <iframe src={selectedVideoUrl} width="640" height="480" allow="autoplay"></iframe>
           ) : (
             <img src={VideoIcon} alt="video" id='videoPlaceholder' />
           )}
