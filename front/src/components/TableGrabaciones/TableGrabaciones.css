@@ -136,3 +136,13 @@
   cursor: pointer;
   margin-top: -0.4em;
 }
+
+.icon-cell a {
+  display: flex; /* Usar flexbox para centrar */
+  justify-content: center; /* Centrar horizontalmente */
+  align-items: center; /* Centrar verticalmente */
+}
+
+.table-clickable {
+  cursor: pointer;
+}

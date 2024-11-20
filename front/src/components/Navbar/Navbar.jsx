@@ -25,7 +25,7 @@ import "./Navbar.css";
 
 //Para hacer que los items del menu de user settings, wrap cada setting con un Link de react-router-dom
 
-const settings = ['Perfil', 'Cuenta', 'Dashboard', 'Logout'];
+const settings = ['Información', 'Ajustes', 'Salir'];
 
 const pageRoutes = [
   { name: 'Inventario', path: '/inventario', icon: <InventorySharpIcon  sx={{ color: 'black', fontSize: '80px' }}/>},

@@ -1,33 +1,41 @@
 import "./TableGrabaciones.css";
-import React, { useState } from 'react'; // Asegúrate de importar useState
+import React, { useState, useEffect } from 'react';
 import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
-// Función para generar fechas aleatorias dentro del último año
-const generateRandomDate = () => {
-  const now = new Date();
-  const pastYear = new Date(now.setFullYear(now.getFullYear() - 1));
-  const randomTime = pastYear.getTime() + Math.random() * (new Date().getTime() - pastYear.getTime());
-  return new Date(randomTime).toISOString().split("T")[0]; // Formato YYYY-MM-DD
-};
+function TableGrabaciones({onVideoSelect}) {
+  const [devices, setDevices] = useState([]); // Para almacenar los datos reales
+  const [deviceType, setDeviceType] = useState('');
+  const [dateFilter, setDateFilter] = useState("");
+  const [searchQuery, setSearchQuery] = useState('');
+  const [isExpanded, setIsExpanded] = useState(false);
 
-function TableGrabaciones(){
-  // Generar fechas aleatorias para los dispositivos
-  const devices = [
-    { id: 1, name: 'Robot tierra', type: 'robot-tierra' },
-    { id: 2, name: 'Dron aire', type: 'dron-aire' },
-    { id: 3, name: 'Carro remoto', type: 'carro-remoto' },
-    { id: 4, name: 'Carro remoto', type: 'carro-remoto' },
-    { id: 5, name: 'Dron aire', type: 'dron-aire' },
-    { id: 6, name: 'Robot tierra', type: 'robot-tierra' },
-    { id: 7, name: 'Robot tierra', type: 'robot-tierra' },
-    { id: 8, name: 'Dron aire', type: 'dron-aire' },
-    { id: 9, name: 'Carro remoto', type: 'carro-remoto' },
-    { id: 10, name: 'Dron aire', type: 'dron-aire' },
-  ].map((device) => ({
-    ...device,
-    fecha: generateRandomDate(), // Asignar una fecha aleatoria
-  }));
+  // Llamado a la API
+  useEffect(() => {
+    const fetchDevices = async () => {
+      try {
+        const response = await fetch("http://localhost:8000/api/videos/");
+        if (!response.ok) {
+          throw new Error("Error al obtener los datos de la API");
+        }
+        const data = await response.json();
+        // Transformar los datos para adaptarlos al formato requerido
+        const transformedData = data.map(video => ({
+          id: video.id,
+          name: video.dispositivo.nombre,
+          type: video.dispositivo.tipo.nombre.toLowerCase(),
+          fecha: video.fecha,
+          url: video.url,
+        }));
+        setDevices(transformedData);
+      } catch (error) {
+        console.error("Error al obtener los dispositivos:", error);
+      }
+    };
 
+    fetchDevices();
+  }, []);
+
+  // Función para obtener el rango de fechas según el filtro
   const getDateRange = (filter) => {
     const now = new Date();
     if (filter === "ultimo-dia") {
@@ -42,21 +50,18 @@ function TableGrabaciones(){
     return null;
   };
 
-  const [deviceType, setDeviceType] = useState('');
-  const [dateFilter, setDateFilter] = useState(""); 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [isExpanded, setIsExpanded] = useState(false);
-
+  // Manejadores de estado
   const handleDeviceTypeChange = (event) => setDeviceType(event.target.value);
   const handleDateChange = (event) => setDateFilter(event.target.value);
   const handleSearchChange = (event) => setSearchQuery(event.target.value.toLowerCase());
   const handleExpandTable = () => setIsExpanded(!isExpanded);
+  const handleRowClick = (url, name) => { onVideoSelect(url, name); };  // Enviar nombre del dispositivo junto con la URL
 
+  // Filtrado de los dispositivos
   const filteredDevices = devices.filter((device) => {
-    const matchesType = !deviceType || device.type === deviceType;
+    const matchesType = !deviceType || device.type.toLowerCase() === deviceType.toLocaleLowerCase();
     const matchesSearch = device.name.toLowerCase().includes(searchQuery);
 
-    // Comparar fechas como objetos Date
     let matchesDate = true;
     if (dateFilter) {
       const filterDate = getDateRange(dateFilter);
@@ -90,9 +95,9 @@ function TableGrabaciones(){
             className="filter-select"
           >
             <option value="">Todos</option>
-            <option value="robot-tierra">Robot tierra</option>
-            <option value="dron-aire">Dron aire</option>
-            <option value="carro-remoto">Carro remoto</option>
+            <option value="Robot">Robot</option>
+            <option value="Dron">Dron</option>
+            <option value="Carro">Carro</option>
           </select>
         </div>
 
@@ -125,16 +130,26 @@ function TableGrabaciones(){
             <tr>
               <th>Fecha</th>
               <th>Dispositivo</th>
+              <th>Tipo</th>
               <th>Descargar</th>
             </tr>
           </thead>
           <tbody>
             {filteredDevices.length > 0 ? (
               filteredDevices.map((device) => (
-                <tr key={device.id}>
+                <tr
+                  key={device.id}
+                  className="table-clickable"
+                  onClick={() => handleRowClick(device.url, device.name)} // Llamar a la función con URL y nombre
+                >
                   <td>{device.fecha}</td>
                   <td>{device.name}</td>
-                  <td><ArrowDownwardIcon/></td>
+                  <td>{device.type}</td>
+                  <td className="icon-cell">
+                    <a href={device.url} download>
+                      <ArrowDownwardIcon />
+                    </a>
+                  </td>
                 </tr>
               ))
             ) : (

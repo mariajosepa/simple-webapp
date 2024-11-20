@@ -4,7 +4,7 @@
   justify-content: center;
   flex-direction: row;
   gap: 2em;
-  height: 60vh;
+  height: 70vh;
 }
 
 /* Contenedor izquierdo */
@@ -14,18 +14,19 @@
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  height: 100%;
 }
 
 /* Contenedor derecho */
 .right-container {
-  width: 45%; /* Ajusta el ancho del contenedor derecho */
+  height: 100%;
   background-color: #f5f5f5;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
 }
 
 /* Placeholder para el mapa */
@@ -43,6 +44,6 @@
 }
 
 #videoPlaceholder {
-  width: 100%;
-  height: 80%;
+  width: 80%;
+  height: 60%;
 }
