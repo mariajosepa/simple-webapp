@@ -115,16 +115,32 @@
   font-weight: bold;
 }
 
-.status-entregado {
+.status-recibido {
   color: green;
 }
 
-.status-de-regreso {
-  color: orange;
+.status-no {
+  color: gray;
 }
 
-.status-en-hangar {
-  color: rgb(0, 0, 0);
+.status-cancelado {
+  color: red;
+}
+
+.status-falla {
+  color: red;
+}
+
+.status-en {
+  color: #3871C1;
+}
+
+.status-llego {
+  color: yellow;
+}
+
+.status-pendiente {
+  color: gray;
 }
 
 .no-results {
