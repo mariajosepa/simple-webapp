@@ -1,25 +1,38 @@
 import "./Table1.css";
-import React, { useState } from 'react'; // Asegúrate de importar useState
+import React, { useState, useEffect } from 'react';
 
-function Table1(){
-  // Datos de los dispositivos
-  const devices = [
-    { id: 1, name: 'Robot tierra', type: 'robot-tierra', status: 'entregado' },
-    { id: 2, name: 'Dron aire', type: 'dron-aire', status: 'de-regreso' },
-    { id: 3, name: 'Carro remoto', type: 'carro-remoto', status: 'entregado' },
-    { id: 4, name: 'Carro remoto', type: 'carro-remoto', status: 'de-regreso' },
-    { id: 5, name: 'Dron aire', type: 'dron-aire', status: 'en-hangar' },
-    { id: 6, name: 'Robot tierra', type: 'robot-tierra', status: 'en-hangar' },
-    { id: 7, name: 'Robot tierra', type: 'robot-tierra', status: 'entregado' },
-    { id: 8, name: 'Dron aire', type: 'dron-aire', status: 'en-hangar' },
-    { id: 9, name: 'Carro remoto', type: 'carro-remoto', status: 'entregado' },
-    { id: 10, name: 'Dron aire', type: 'dron-aire', status: 'de-regreso' },
-  ];
-
+function Table1() {
+  const [devices, setDevices] = useState([]);
   const [deviceType, setDeviceType] = useState('');
   const [status, setStatus] = useState('');
   const [searchQuery, setSearchQuery] = useState('');
   const [isExpanded, setIsExpanded] = useState(false);
+
+  // Realiza la solicitud a la API
+  useEffect(() => {
+    // Función para obtener los datos de la API
+    const fetchDevices = async () => {
+      try {
+        const response = await fetch('http://localhost:8000/api/servicios/');
+        const data = await response.json();
+        
+        // Extrae solo los campos necesarios
+        const devices = data.flatMap((item) =>
+          item.dispositivos.map((device) => ({
+            id: device.id,
+            type: device.nombre,  // Extrae el nombre del tipo
+            status: item.estado.nombre // Extrae el estado del servicio
+          }))
+        );
+
+        setDevices(devices); // Establece el estado con los dispositivos filtrados
+      } catch (error) {
+        console.error('Error al obtener los datos:', error);
+      }
+    };
+
+    fetchDevices();
+  }, []);
 
   const handleDeviceTypeChange = (event) => setDeviceType(event.target.value);
   const handleStatusChange = (event) => setStatus(event.target.value);
@@ -29,7 +42,7 @@ function Table1(){
   const filteredDevices = devices.filter((device) => {
     const matchesType = !deviceType || device.type === deviceType;
     const matchesStatus = !status || device.status === status;
-    const matchesSearch = device.name.toLowerCase().includes(searchQuery);
+    const matchesSearch = device.type.toLowerCase().includes(searchQuery);
     return matchesType && matchesStatus && matchesSearch;
   });
 
@@ -58,9 +71,8 @@ function Table1(){
             className="filter-select"
           >
             <option value="">Todos</option>
-            <option value="robot-tierra">Robot tierra</option>
-            <option value="dron-aire">Dron aire</option>
-            <option value="carro-remoto">Carro remoto</option>
+            <option value="Dron">Dron</option>
+            <option value="Robot">Robot</option>
           </select>
         </div>
 
@@ -73,9 +85,13 @@ function Table1(){
             className="filter-select"
           >
             <option value="">Todos</option>
-            <option value="entregado">Entregado</option>
-            <option value="en-hangar">En hangar</option>
-            <option value="de-regreso">De regreso</option>
+            <option value="Recibido">recibido</option>
+            <option value="Pendiente">pendiente</option>
+            <option value="Cancelado">cancelado</option>
+            <option value="No Recibido">no</option>
+            <option value="En progreso">en</option>
+            <option value="Falla Crítica">falla</option>
+            <option value="Llegó al destino">llego</option>
           </select>
         </div>
       </div>
@@ -92,7 +108,7 @@ function Table1(){
           <thead>
             <tr>
               <th>Mostrar en mapa</th>
-              <th>Dispositivo</th>
+              <th>Nombre del dispositivo</th>
               <th>Estado</th>
             </tr>
           </thead>
@@ -101,8 +117,10 @@ function Table1(){
               filteredDevices.map((device) => (
                 <tr key={device.id}>
                   <td><input type="checkbox" /></td>
-                  <td>{device.name}</td>
-                  <td className={`status status-${device.status}`}>{device.status}</td>
+                  <td>{device.type}</td>
+                  <td className={`status status-${device.status.toLowerCase().split(" ")[0].normalize("NFD").replace(/[\u0300-\u036f]/g, '')}`}>
+                    {device.status}
+                  </td>
                 </tr>
               ))
             ) : (
@@ -126,4 +144,3 @@ function Table1(){
 }
 
 export default Table1;
-
